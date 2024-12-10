@@ -5,5 +5,7 @@ C:\Users\User\documents salwa\semester 7\progdas\phonebook\phonebook\MyForm.h(64
 C:\Users\User\documents salwa\semester 7\progdas\phonebook\phonebook\MyForm.h(645,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'MyForm.cpp')
   
+  .NETFramework,Version=v4.8.AssemblyAttributes.cpp
+  Generating Code...
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  phonebook.vcxproj -> C:\Users\User\documents salwa\semester 7\progdas\phonebook\x64\Debug\phonebook.exe
+  phonebook.vcxproj -> C:\Users\User\documents salwa\semester 7\progdas\phonebook\x64\Release\phonebook.exe

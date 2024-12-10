@@ -102,6 +102,7 @@ namespace phonebook {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->btnAddContact = (gcnew System::Windows::Forms::Button());
@@ -141,14 +142,15 @@ namespace phonebook {
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage3);
-			this->tabControl1->Location = System::Drawing::Point(-5, -31);
+			this->tabControl1->Location = System::Drawing::Point(-5, -37);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(446, 731);
+			this->tabControl1->Size = System::Drawing::Size(446, 737);
 			this->tabControl1->TabIndex = 3;
 			// 
 			// tabPage1
 			// 
+			this->tabPage1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"tabPage1.BackgroundImage")));
 			this->tabPage1->Controls->Add(this->btnAddContact);
 			this->tabPage1->Controls->Add(this->lstContacts);
 			this->tabPage1->Controls->Add(this->txtSearch);
@@ -156,7 +158,7 @@ namespace phonebook {
 			this->tabPage1->Location = System::Drawing::Point(4, 29);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(438, 664);
+			this->tabPage1->Size = System::Drawing::Size(438, 704);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"tabPage1";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -168,7 +170,7 @@ namespace phonebook {
 			this->btnAddContact->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnAddContact->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnAddContact->Location = System::Drawing::Point(250, 616);
+			this->btnAddContact->Location = System::Drawing::Point(250, 642);
 			this->btnAddContact->Name = L"btnAddContact";
 			this->btnAddContact->Size = System::Drawing::Size(170, 45);
 			this->btnAddContact->TabIndex = 3;
@@ -184,10 +186,10 @@ namespace phonebook {
 				static_cast<System::Byte>(0)));
 			this->lstContacts->FormattingEnabled = true;
 			this->lstContacts->ItemHeight = 60;
-			this->lstContacts->Location = System::Drawing::Point(14, 133);
+			this->lstContacts->Location = System::Drawing::Point(14, 150);
 			this->lstContacts->Margin = System::Windows::Forms::Padding(30);
 			this->lstContacts->Name = L"lstContacts";
-			this->lstContacts->Size = System::Drawing::Size(406, 420);
+			this->lstContacts->Size = System::Drawing::Size(406, 480);
 			this->lstContacts->TabIndex = 2;
 			this->lstContacts->DrawItem += gcnew System::Windows::Forms::DrawItemEventHandler(this, &MyForm::lstContacts_DrawItem);
 			this->lstContacts->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::lstContacts_SelectedIndexChanged);
@@ -197,8 +199,8 @@ namespace phonebook {
 			this->txtSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->txtSearch->Font = (gcnew System::Drawing::Font(L"SF UI Text", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txtSearch->ForeColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->txtSearch->Location = System::Drawing::Point(11, 79);
+			this->txtSearch->ForeColor = System::Drawing::SystemColors::ControlDark;
+			this->txtSearch->Location = System::Drawing::Point(11, 87);
 			this->txtSearch->Margin = System::Windows::Forms::Padding(10);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(410, 31);
@@ -213,7 +215,8 @@ namespace phonebook {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"SF UI Text", 16, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(115, 15);
+			this->label1->ForeColor = System::Drawing::Color::MidnightBlue;
+			this->label1->Location = System::Drawing::Point(115, 27);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(198, 38);
 			this->label1->TabIndex = 0;
@@ -222,6 +225,7 @@ namespace phonebook {
 			// tabPage2
 			// 
 			this->tabPage2->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->tabPage2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"tabPage2.BackgroundImage")));
 			this->tabPage2->Controls->Add(this->label7);
 			this->tabPage2->Controls->Add(this->btnDelete);
 			this->tabPage2->Controls->Add(this->btnSave);
@@ -234,18 +238,20 @@ namespace phonebook {
 			this->tabPage2->Location = System::Drawing::Point(4, 29);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(438, 664);
+			this->tabPage2->Size = System::Drawing::Size(438, 704);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"tabPage2";
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"SF UI Text", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label7->BackColor = System::Drawing::Color::Transparent;
+			this->label7->Font = (gcnew System::Drawing::Font(L"SF UI Text", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(130, 26);
+			this->label7->ForeColor = System::Drawing::Color::MidnightBlue;
+			this->label7->Location = System::Drawing::Point(129, 26);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(163, 29);
+			this->label7->Size = System::Drawing::Size(190, 34);
 			this->label7->TabIndex = 8;
 			this->label7->Text = L"Edit Contact";
 			// 
@@ -301,6 +307,7 @@ namespace phonebook {
 			// label3
 			// 
 			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(20, 360);
@@ -311,6 +318,7 @@ namespace phonebook {
 			// 
 			// txtPhone
 			// 
+			this->txtPhone->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->txtPhone->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->txtPhone->Location = System::Drawing::Point(181, 357);
@@ -322,6 +330,7 @@ namespace phonebook {
 			// label2
 			// 
 			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label2->Location = System::Drawing::Point(20, 309);
@@ -332,6 +341,7 @@ namespace phonebook {
 			// 
 			// txtName
 			// 
+			this->txtName->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->txtName->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->txtName->Location = System::Drawing::Point(181, 304);
@@ -351,6 +361,7 @@ namespace phonebook {
 			// tabPage3
 			// 
 			this->tabPage3->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->tabPage3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"tabPage3.BackgroundImage")));
 			this->tabPage3->Controls->Add(this->btnDeleteAdd);
 			this->tabPage3->Controls->Add(this->btnSaveAdd);
 			this->tabPage3->Controls->Add(this->label5);
@@ -363,7 +374,7 @@ namespace phonebook {
 			this->tabPage3->Location = System::Drawing::Point(4, 29);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(438, 698);
+			this->tabPage3->Size = System::Drawing::Size(438, 704);
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"tabPage3";
 			// 
@@ -402,6 +413,7 @@ namespace phonebook {
 			// label5
 			// 
 			this->label5->AutoSize = true;
+			this->label5->BackColor = System::Drawing::Color::Transparent;
 			this->label5->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label5->Location = System::Drawing::Point(24, 374);
@@ -423,6 +435,7 @@ namespace phonebook {
 			// label6
 			// 
 			this->label6->AutoSize = true;
+			this->label6->BackColor = System::Drawing::Color::Transparent;
 			this->label6->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->Location = System::Drawing::Point(24, 323);
@@ -469,11 +482,13 @@ namespace phonebook {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"SF UI Text", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label4->BackColor = System::Drawing::Color::Transparent;
+			this->label4->Font = (gcnew System::Drawing::Font(L"SF UI Text", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(132, 32);
+			this->label4->ForeColor = System::Drawing::Color::MidnightBlue;
+			this->label4->Location = System::Drawing::Point(118, 28);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(164, 29);
+			this->label4->Size = System::Drawing::Size(191, 34);
 			this->label4->TabIndex = 1;
 			this->label4->Text = L"Add Contact";
 			// 
@@ -643,7 +658,7 @@ namespace phonebook {
 // FOR HOMEPAGE
 	private: System::Void txtSearch_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (txtSearch->Text == "Search") {
-			return; // Skip logic if the placeholder is present
+			return;
 		}
 
 		String^ searchQuery = txtSearch->Text->ToLower()->Trim();

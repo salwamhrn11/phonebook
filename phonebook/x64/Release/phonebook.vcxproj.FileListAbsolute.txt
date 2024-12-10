@@ -1,0 +1,3 @@
+C:\Users\User\documents salwa\semester 7\progdas\phonebook\phonebook\x64\Release\phonebook.vcxproj.AssemblyReference.cache
+C:\Users\User\documents salwa\semester 7\progdas\phonebook\phonebook\x64\Release\phonebook.MyForm.resources
+C:\Users\User\documents salwa\semester 7\progdas\phonebook\phonebook\x64\Release\phonebook.vcxproj.GenerateResource.cache
