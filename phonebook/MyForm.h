@@ -79,6 +79,7 @@ namespace phonebook {
 	private: System::Windows::Forms::TextBox^ txtPhoneAdd;
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::TextBox^ txtNameAdd;
+	private: System::Windows::Forms::Label^ label7;
 
 
 
@@ -108,6 +109,7 @@ namespace phonebook {
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->btnDelete = (gcnew System::Windows::Forms::Button());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnUploadPicture = (gcnew System::Windows::Forms::Button());
@@ -139,10 +141,10 @@ namespace phonebook {
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage3);
-			this->tabControl1->Location = System::Drawing::Point(-5, -30);
+			this->tabControl1->Location = System::Drawing::Point(-5, -32);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(446, 730);
+			this->tabControl1->Size = System::Drawing::Size(446, 732);
 			this->tabControl1->TabIndex = 3;
 			// 
 			// tabPage1
@@ -154,7 +156,7 @@ namespace phonebook {
 			this->tabPage1->Location = System::Drawing::Point(4, 29);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(438, 669);
+			this->tabPage1->Size = System::Drawing::Size(438, 664);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"tabPage1";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -177,6 +179,7 @@ namespace phonebook {
 			// lstContacts
 			// 
 			this->lstContacts->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->lstContacts->DrawMode = System::Windows::Forms::DrawMode::OwnerDrawFixed;
 			this->lstContacts->Font = (gcnew System::Drawing::Font(L"SF UI Text", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lstContacts->FormattingEnabled = true;
@@ -184,12 +187,10 @@ namespace phonebook {
 			this->lstContacts->Location = System::Drawing::Point(14, 133);
 			this->lstContacts->Margin = System::Windows::Forms::Padding(30);
 			this->lstContacts->Name = L"lstContacts";
-			this->lstContacts->Size = System::Drawing::Size(406, 456);
+			this->lstContacts->Size = System::Drawing::Size(406, 420);
 			this->lstContacts->TabIndex = 2;
-			this->lstContacts->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::lstContacts_SelectedIndexChanged);
-			this->lstContacts->DrawMode = System::Windows::Forms::DrawMode::OwnerDrawFixed;
 			this->lstContacts->DrawItem += gcnew System::Windows::Forms::DrawItemEventHandler(this, &MyForm::lstContacts_DrawItem);
-
+			this->lstContacts->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::lstContacts_SelectedIndexChanged);
 			// 
 			// txtSearch
 			// 
@@ -203,10 +204,9 @@ namespace phonebook {
 			this->txtSearch->Size = System::Drawing::Size(410, 31);
 			this->txtSearch->TabIndex = 1;
 			this->txtSearch->Text = L"Search";
+			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MyForm::txtSearch_TextChanged);
 			this->txtSearch->GotFocus += gcnew System::EventHandler(this, &MyForm::txtSearch_GotFocus);
 			this->txtSearch->LostFocus += gcnew System::EventHandler(this, &MyForm::txtSearch_LostFocus);
-			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MyForm::txtSearch_TextChanged);
-
 			// 
 			// label1
 			// 
@@ -222,6 +222,7 @@ namespace phonebook {
 			// tabPage2
 			// 
 			this->tabPage2->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->tabPage2->Controls->Add(this->label7);
 			this->tabPage2->Controls->Add(this->btnDelete);
 			this->tabPage2->Controls->Add(this->btnSave);
 			this->tabPage2->Controls->Add(this->btnUploadPicture);
@@ -233,9 +234,20 @@ namespace phonebook {
 			this->tabPage2->Location = System::Drawing::Point(4, 29);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(438, 669);
+			this->tabPage2->Size = System::Drawing::Size(438, 665);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"tabPage2";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"SF UI Text", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(130, 26);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(163, 29);
+			this->label7->TabIndex = 8;
+			this->label7->Text = L"Edit Contact";
 			// 
 			// btnDelete
 			// 
@@ -245,7 +257,7 @@ namespace phonebook {
 			this->btnDelete->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnDelete->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnDelete->Location = System::Drawing::Point(228, 391);
+			this->btnDelete->Location = System::Drawing::Point(228, 442);
 			this->btnDelete->Name = L"btnDelete";
 			this->btnDelete->Size = System::Drawing::Size(151, 48);
 			this->btnDelete->TabIndex = 7;
@@ -261,7 +273,7 @@ namespace phonebook {
 			this->btnSave->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnSave->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnSave->Location = System::Drawing::Point(34, 391);
+			this->btnSave->Location = System::Drawing::Point(34, 442);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(151, 48);
 			this->btnSave->TabIndex = 6;
@@ -278,9 +290,9 @@ namespace phonebook {
 			this->btnUploadPicture->Font = (gcnew System::Drawing::Font(L"SF UI Text", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnUploadPicture->ForeColor = System::Drawing::Color::MidnightBlue;
-			this->btnUploadPicture->Location = System::Drawing::Point(135, 170);
+			this->btnUploadPicture->Location = System::Drawing::Point(135, 223);
 			this->btnUploadPicture->Name = L"btnUploadPicture";
-			this->btnUploadPicture->Size = System::Drawing::Size(162, 60);
+			this->btnUploadPicture->Size = System::Drawing::Size(162, 40);
 			this->btnUploadPicture->TabIndex = 5;
 			this->btnUploadPicture->Text = L"Upload Picture";
 			this->btnUploadPicture->UseVisualStyleBackColor = false;
@@ -291,7 +303,7 @@ namespace phonebook {
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(20, 309);
+			this->label3->Location = System::Drawing::Point(20, 360);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(144, 21);
 			this->label3->TabIndex = 4;
@@ -301,7 +313,7 @@ namespace phonebook {
 			// 
 			this->txtPhone->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txtPhone->Location = System::Drawing::Point(181, 306);
+			this->txtPhone->Location = System::Drawing::Point(181, 357);
 			this->txtPhone->Name = L"txtPhone";
 			this->txtPhone->Size = System::Drawing::Size(230, 29);
 			this->txtPhone->TabIndex = 3;
@@ -312,7 +324,7 @@ namespace phonebook {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(20, 258);
+			this->label2->Location = System::Drawing::Point(20, 309);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(63, 21);
 			this->label2->TabIndex = 2;
@@ -322,7 +334,7 @@ namespace phonebook {
 			// 
 			this->txtName->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txtName->Location = System::Drawing::Point(181, 253);
+			this->txtName->Location = System::Drawing::Point(181, 304);
 			this->txtName->Name = L"txtName";
 			this->txtName->Size = System::Drawing::Size(230, 29);
 			this->txtName->TabIndex = 1;
@@ -330,7 +342,7 @@ namespace phonebook {
 			// 
 			// picProfile
 			// 
-			this->picProfile->Location = System::Drawing::Point(135, 44);
+			this->picProfile->Location = System::Drawing::Point(135, 83);
 			this->picProfile->Name = L"picProfile";
 			this->picProfile->Size = System::Drawing::Size(162, 120);
 			this->picProfile->TabIndex = 0;
@@ -351,7 +363,7 @@ namespace phonebook {
 			this->tabPage3->Location = System::Drawing::Point(4, 29);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(438, 697);
+			this->tabPage3->Size = System::Drawing::Size(438, 699);
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"tabPage3";
 			// 
@@ -363,11 +375,11 @@ namespace phonebook {
 			this->btnDeleteAdd->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnDeleteAdd->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnDeleteAdd->Location = System::Drawing::Point(232, 430);
+			this->btnDeleteAdd->Location = System::Drawing::Point(232, 456);
 			this->btnDeleteAdd->Name = L"btnDeleteAdd";
 			this->btnDeleteAdd->Size = System::Drawing::Size(151, 48);
 			this->btnDeleteAdd->TabIndex = 13;
-			this->btnDeleteAdd->Text = L"Delete";
+			this->btnDeleteAdd->Text = L"Cancel";
 			this->btnDeleteAdd->UseVisualStyleBackColor = false;
 			// 
 			// btnSaveAdd
@@ -378,7 +390,7 @@ namespace phonebook {
 			this->btnSaveAdd->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnSaveAdd->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnSaveAdd->Location = System::Drawing::Point(38, 430);
+			this->btnSaveAdd->Location = System::Drawing::Point(38, 456);
 			this->btnSaveAdd->Name = L"btnSaveAdd";
 			this->btnSaveAdd->Size = System::Drawing::Size(151, 48);
 			this->btnSaveAdd->TabIndex = 12;
@@ -391,7 +403,7 @@ namespace phonebook {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(24, 348);
+			this->label5->Location = System::Drawing::Point(24, 374);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(144, 21);
 			this->label5->TabIndex = 11;
@@ -401,7 +413,7 @@ namespace phonebook {
 			// 
 			this->txtPhoneAdd->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txtPhoneAdd->Location = System::Drawing::Point(185, 345);
+			this->txtPhoneAdd->Location = System::Drawing::Point(185, 371);
 			this->txtPhoneAdd->Name = L"txtPhoneAdd";
 			this->txtPhoneAdd->Size = System::Drawing::Size(230, 29);
 			this->txtPhoneAdd->TabIndex = 10;
@@ -412,7 +424,7 @@ namespace phonebook {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(24, 297);
+			this->label6->Location = System::Drawing::Point(24, 323);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(63, 21);
 			this->label6->TabIndex = 9;
@@ -422,7 +434,7 @@ namespace phonebook {
 			// 
 			this->txtNameAdd->Font = (gcnew System::Drawing::Font(L"SF UI Text", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txtNameAdd->Location = System::Drawing::Point(185, 297);
+			this->txtNameAdd->Location = System::Drawing::Point(185, 323);
 			this->txtNameAdd->Name = L"txtNameAdd";
 			this->txtNameAdd->Size = System::Drawing::Size(230, 29);
 			this->txtNameAdd->TabIndex = 8;
@@ -437,9 +449,9 @@ namespace phonebook {
 			this->btnUploadAddContactPic->Font = (gcnew System::Drawing::Font(L"SF UI Text", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnUploadAddContactPic->ForeColor = System::Drawing::Color::MidnightBlue;
-			this->btnUploadAddContactPic->Location = System::Drawing::Point(134, 210);
+			this->btnUploadAddContactPic->Location = System::Drawing::Point(134, 225);
 			this->btnUploadAddContactPic->Name = L"btnUploadAddContactPic";
-			this->btnUploadAddContactPic->Size = System::Drawing::Size(162, 60);
+			this->btnUploadAddContactPic->Size = System::Drawing::Size(162, 40);
 			this->btnUploadAddContactPic->TabIndex = 7;
 			this->btnUploadAddContactPic->Text = L"Upload Picture";
 			this->btnUploadAddContactPic->UseVisualStyleBackColor = false;
@@ -447,7 +459,7 @@ namespace phonebook {
 			// 
 			// picProfileAdd
 			// 
-			this->picProfileAdd->Location = System::Drawing::Point(134, 84);
+			this->picProfileAdd->Location = System::Drawing::Point(135, 83);
 			this->picProfileAdd->Name = L"picProfileAdd";
 			this->picProfileAdd->Size = System::Drawing::Size(162, 120);
 			this->picProfileAdd->TabIndex = 6;
@@ -520,7 +532,7 @@ namespace phonebook {
 			}
 		}
 		//check if both name and phone are valid
-		bool canSave = !String::IsNullOrEmpty(name) && !nameExists && !String::IsNullOrEmpty(txtPhone->Text); // Use txtPhone for phone number
+		bool canSave = !String::IsNullOrEmpty(name) && !nameExists && !String::IsNullOrEmpty(txtPhone->Text);
 		btnSave->Enabled = canSave;
 	}
 
@@ -571,6 +583,7 @@ namespace phonebook {
 				txtName->Text = selectedContact->Name;
 				txtPhone->Text = selectedContact->PhoneNumber;
 				picProfile->Image = selectedContact->ProfilePicture;
+				DisplayProfilePictureCircular(picProfile);
 				tabControl1->SelectedTab = tabPage2;
 			}
 			else {
@@ -580,36 +593,32 @@ namespace phonebook {
 	}
 
 	private: System::Void btnAddContact_Click(System::Object^ sender, System::EventArgs^ e) {
-		//clear the Add Contact fields
 		txtNameAdd->Text = "";
 		txtPhoneAdd->Text = "";
 		picProfileAdd->Image = nullptr;
+		picProfileAdd->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 
+		DisplayProfilePictureCircular(picProfileAdd);
 		tabControl1->SelectedTab = tabPage3;
 	}
 	private: System::Void btnUploadPicture_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (lstContacts->SelectedIndex == -1) {
-			MessageBox::Show("Please select a contact to upload a picture.");
-			return;
-		}
-
 		OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
 		openFileDialog->Filter = "Image Files|*.png;*.jpg;*.jpeg";
 
 		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 			String^ filePath = openFileDialog->FileName;
 
-			//load the image
-			System::Drawing::Image^ profileImage = Image::FromFile(filePath);
+			// Load the image
+			System::Drawing::Image^ originalImage = Image::FromFile(filePath);
 
-			//assign the image to the selected contact
-			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
-			if (selectedContact != nullptr) {
-				selectedContact->ProfilePicture = profileImage;
+			// Crop the image to a 100x100 square
+			System::Drawing::Image^ croppedImage = CropImageToSquare(originalImage, 100);
 
-				//refresh the displayed list to show the updated profile picture
-				lstContacts->Refresh();
-			}
+			// Update the PictureBox with the cropped image
+			picProfile->Image = croppedImage;
+
+			// Apply circular clipping
+			DisplayProfilePictureCircular(picProfile);
 		}
 	}
 
@@ -620,11 +629,60 @@ namespace phonebook {
 		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 			String^ filePath = openFileDialog->FileName;
 
-			//load the image
-			System::Drawing::Image^ profileImage = Image::FromFile(filePath);
+			// Load the image
+			System::Drawing::Image^ originalImage = Image::FromFile(filePath);
 
-			//display the selected image in a preview box
-			picProfileAdd->Image = profileImage;
+			// Update the PictureBox with the new image
+			System::Drawing::Image^ croppedImage = CropImageToSquare(originalImage, 100);
+			picProfileAdd->Image = croppedImage;
+
+			// Apply circular clipping
+			DisplayProfilePictureCircular(picProfileAdd);
+		}
+	}
+
+	private: System::Drawing::Image^ CropImageToSquare(System::Drawing::Image^ originalImage, int targetSize) {
+		//determine the smallest dimension of the original image
+		int cropSize = Math::Min(originalImage->Width, originalImage->Height);
+
+		//calculate the cropping rectangle (centered)
+		int xOffset = (originalImage->Width - cropSize) / 2;
+		int yOffset = (originalImage->Height - cropSize) / 2;
+
+		System::Drawing::Rectangle cropRect = System::Drawing::Rectangle(xOffset, yOffset, cropSize, cropSize);
+
+		//create a new bitmap with the target size
+		System::Drawing::Bitmap^ croppedBitmap = gcnew System::Drawing::Bitmap(targetSize, targetSize);
+
+		//draw the cropped image onto the bitmap
+		System::Drawing::Graphics^ graphics = System::Drawing::Graphics::FromImage(croppedBitmap);
+		try {
+			graphics->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
+			graphics->DrawImage(originalImage, System::Drawing::Rectangle(0, 0, targetSize, targetSize), cropRect, System::Drawing::GraphicsUnit::Pixel);
+		}
+		finally {
+			//dispose of the graphics object to release resources
+			delete graphics;
+		}
+
+		return croppedBitmap;
+	}
+
+	private: System::Void DisplayProfilePictureCircular(System::Windows::Forms::PictureBox^ pictureBox) {
+		if (pictureBox->Image != nullptr) {
+			//determine the smallest dimension to create a perfect circle
+			int size = Math::Min(pictureBox->Width, pictureBox->Height);
+
+			//center the circle in the PictureBox
+			int xOffset = (pictureBox->Width - size) / 2;
+			int yOffset = (pictureBox->Height - size) / 2;
+
+			//create the circular region
+			System::Drawing::Drawing2D::GraphicsPath^ path = gcnew System::Drawing::Drawing2D::GraphicsPath();
+			path->AddEllipse(xOffset, yOffset, size, size);
+
+			//apply the circular region to the PictureBox
+			pictureBox->Region = gcnew System::Drawing::Region(path);
 		}
 	}
 
@@ -691,19 +749,21 @@ namespace phonebook {
 		if (lstContacts->SelectedIndex != -1) {
 			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
 			if (selectedContact != nullptr) {
+				//update the contact details
 				selectedContact->Name = txtName->Text;
 				selectedContact->PhoneNumber = txtPhone->Text;
-				lstContacts->Items[lstContacts->SelectedIndex] = selectedContact;
-				tabControl1->SelectedTab = tabPage1;
+				selectedContact->ProfilePicture = picProfile->Image;
+
+				//refresh the circular display in the list
+				lstContacts->Refresh();
 			}
-			else {
-				MessageBox::Show("Error: Selected item is not a valid contact.");
-			}
+			tabControl1->SelectedTab = tabPage1;
 		}
 		else {
 			MessageBox::Show("Please select a contact to save.");
 		}
 	}
+
 
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 		int selectedIndex = lstContacts->SelectedIndex;
@@ -733,8 +793,6 @@ namespace phonebook {
 		else {
 			MessageBox::Show("Please select a contact to delete.");
 		}
-
-
 	}
 
 	private: System::Void txtNameAdd_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -804,7 +862,7 @@ namespace phonebook {
 	private: System::Void btnSaveAdd_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ name = txtNameAdd->Text;
 		String^ phone = txtPhoneAdd->Text;
-		System::Drawing::Image^ profileImage = picProfileAdd->Image;
+		System::Drawing::Image^ profileImage = picProfileAdd->Image; // Get the uploaded image
 
 		//validate name and phone number
 		if (String::IsNullOrWhiteSpace(name) || String::IsNullOrWhiteSpace(phone)) {
