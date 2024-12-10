@@ -141,10 +141,10 @@ namespace phonebook {
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage3);
-			this->tabControl1->Location = System::Drawing::Point(-5, -32);
+			this->tabControl1->Location = System::Drawing::Point(-5, -31);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(446, 732);
+			this->tabControl1->Size = System::Drawing::Size(446, 731);
 			this->tabControl1->TabIndex = 3;
 			// 
 			// tabPage1
@@ -234,7 +234,7 @@ namespace phonebook {
 			this->tabPage2->Location = System::Drawing::Point(4, 29);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(438, 665);
+			this->tabPage2->Size = System::Drawing::Size(438, 664);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"tabPage2";
 			// 
@@ -363,7 +363,7 @@ namespace phonebook {
 			this->tabPage3->Location = System::Drawing::Point(4, 29);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(438, 699);
+			this->tabPage3->Size = System::Drawing::Size(438, 698);
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"tabPage3";
 			// 
@@ -381,6 +381,7 @@ namespace phonebook {
 			this->btnDeleteAdd->TabIndex = 13;
 			this->btnDeleteAdd->Text = L"Cancel";
 			this->btnDeleteAdd->UseVisualStyleBackColor = false;
+			this->btnDeleteAdd->Click += gcnew System::EventHandler(this, &MyForm::btnDeleteAdd_Click);
 			// 
 			// btnSaveAdd
 			// 
@@ -518,48 +519,7 @@ namespace phonebook {
 #pragma endregion
 
 	private: System::Collections::Generic::List<Contact^>^ allContacts;
-
-	private: System::Void txtName_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		String^ name = txtName->Text; 
-
-		//disable the save button if the name is empty or if the name already exists in the contact list
-		bool nameExists = false;
-		for (int i = 0; i < lstContacts->Items->Count; ++i) {
-			Contact^ existingContact = dynamic_cast<Contact^>(lstContacts->Items[i]);
-			if (existingContact != nullptr && existingContact->Name == name) {
-				nameExists = true;
-				break;
-			}
-		}
-		//check if both name and phone are valid
-		bool canSave = !String::IsNullOrEmpty(name) && !nameExists && !String::IsNullOrEmpty(txtPhone->Text);
-		btnSave->Enabled = canSave;
-	}
-
-
-
-	private: System::Void txtSearch_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (txtSearch->Text == "Search") {
-			return; // Skip logic if the placeholder is present
-		}
-
-		String^ searchQuery = txtSearch->Text->ToLower()->Trim();
-
-		// if the search query is empty, display all contacts
-		if (String::IsNullOrWhiteSpace(searchQuery)) {
-			PopulateContactList();
-			return;
-		}
-
-		// filter and display matching contacts
-		lstContacts->Items->Clear();
-		for each (Contact ^ contact in allContacts) {
-			if (contact->Name->ToLower()->Contains(searchQuery) || contact->PhoneNumber->Contains(searchQuery)) {
-				lstContacts->Items->Add(contact);
-			}
-		}
-	}
-
+	
 	private: System::Void NavigateToHomePage(System::Object^ sender, System::EventArgs^ e) {
 		//check if the selected tab is the homepage tab
 		if (tabControl1->SelectedTab == tabPage1) {
@@ -570,74 +530,9 @@ namespace phonebook {
 	}
 
 	private: System::Void PopulateContactList() {
-		lstContacts->Items->Clear(); 
+		lstContacts->Items->Clear();
 		for each (Contact ^ contact in allContacts) {
 			lstContacts->Items->Add(contact); //add all contacts from the backup list
-		}
-	}
-
-	private: System::Void lstContacts_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (lstContacts->SelectedItem != nullptr) {
-			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
-			if (selectedContact != nullptr) {
-				txtName->Text = selectedContact->Name;
-				txtPhone->Text = selectedContact->PhoneNumber;
-				picProfile->Image = selectedContact->ProfilePicture;
-				DisplayProfilePictureCircular(picProfile);
-				tabControl1->SelectedTab = tabPage2;
-			}
-			else {
-				MessageBox::Show("Error: Selected item is not a valid contact.");
-			}
-		}
-	}
-
-	private: System::Void btnAddContact_Click(System::Object^ sender, System::EventArgs^ e) {
-		txtNameAdd->Text = "";
-		txtPhoneAdd->Text = "";
-		picProfileAdd->Image = nullptr;
-		picProfileAdd->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-
-		DisplayProfilePictureCircular(picProfileAdd);
-		tabControl1->SelectedTab = tabPage3;
-	}
-	private: System::Void btnUploadPicture_Click(System::Object^ sender, System::EventArgs^ e) {
-		OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
-		openFileDialog->Filter = "Image Files|*.png;*.jpg;*.jpeg";
-
-		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			String^ filePath = openFileDialog->FileName;
-
-			// Load the image
-			System::Drawing::Image^ originalImage = Image::FromFile(filePath);
-
-			// Crop the image to a 100x100 square
-			System::Drawing::Image^ croppedImage = CropImageToSquare(originalImage, 100);
-
-			// Update the PictureBox with the cropped image
-			picProfile->Image = croppedImage;
-
-			// Apply circular clipping
-			DisplayProfilePictureCircular(picProfile);
-		}
-	}
-
-	private: System::Void btnUploadAddContactPic_Click(System::Object ^ sender, System::EventArgs ^ e) {
-		OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
-		openFileDialog->Filter = "Image Files|*.png;*.jpg;*.jpeg";
-
-		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			String^ filePath = openFileDialog->FileName;
-
-			// Load the image
-			System::Drawing::Image^ originalImage = Image::FromFile(filePath);
-
-			// Update the PictureBox with the new image
-			System::Drawing::Image^ croppedImage = CropImageToSquare(originalImage, 100);
-			picProfileAdd->Image = croppedImage;
-
-			// Apply circular clipping
-			DisplayProfilePictureCircular(picProfileAdd);
 		}
 	}
 
@@ -699,8 +594,8 @@ namespace phonebook {
 		}
 
 		//define dimensions for the profile picture
-		int pictureSize = 50; 
-		int padding = 10;   
+		int pictureSize = 50;
+		int padding = 10;
 
 		//define the rectangle for the profile picture
 		System::Drawing::Rectangle pictureRect = System::Drawing::Rectangle(
@@ -745,53 +640,83 @@ namespace phonebook {
 		);
 	}
 
-	private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (lstContacts->SelectedIndex != -1) {
-			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
-			if (selectedContact != nullptr) {
-				//update the contact details
-				selectedContact->Name = txtName->Text;
-				selectedContact->PhoneNumber = txtPhone->Text;
-				selectedContact->ProfilePicture = picProfile->Image;
-
-				//refresh the circular display in the list
-				lstContacts->Refresh();
-			}
-			tabControl1->SelectedTab = tabPage1;
+// FOR HOMEPAGE
+	private: System::Void txtSearch_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (txtSearch->Text == "Search") {
+			return; // Skip logic if the placeholder is present
 		}
-		else {
-			MessageBox::Show("Please select a contact to save.");
+
+		String^ searchQuery = txtSearch->Text->ToLower()->Trim();
+
+		// if the search query is empty, display all contacts
+		if (String::IsNullOrWhiteSpace(searchQuery)) {
+			PopulateContactList();
+			return;
+		}
+
+		// filter and display matching contacts
+		lstContacts->Items->Clear();
+		for each (Contact ^ contact in allContacts) {
+			if (contact->Name->ToLower()->Contains(searchQuery) || contact->PhoneNumber->Contains(searchQuery)) {
+				lstContacts->Items->Add(contact);
+			}
 		}
 	}
 
-
-	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
-		int selectedIndex = lstContacts->SelectedIndex;
-
-		//check if a contact is selected
-		if (selectedIndex != -1) {
-			//retrieve the selected contact
+	private: System::Void lstContacts_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (lstContacts->SelectedItem != nullptr) {
 			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
-
-			//confirmation dialog
-			System::Windows::Forms::DialogResult result = MessageBox::Show(
-				"Are you sure you want to delete this contact?",
-				"Delete Contact",
-				MessageBoxButtons::YesNo,
-				MessageBoxIcon::Question
-			);
-
-			//user confirms deletion
-			if (result == System::Windows::Forms::DialogResult::Yes) {
-				allContacts->Remove(selectedContact);
-				lstContacts->Items->RemoveAt(selectedIndex);
-				PopulateContactList();
-				tabControl1->SelectedTab = tabPage1;
-
+			if (selectedContact != nullptr) {
+				txtName->Text = selectedContact->Name;
+				txtPhone->Text = selectedContact->PhoneNumber;
+				picProfile->Image = selectedContact->ProfilePicture;
+				DisplayProfilePictureCircular(picProfile);
+				tabControl1->SelectedTab = tabPage2;
+			}
+			else {
+				MessageBox::Show("Error: Selected item is not a valid contact.");
 			}
 		}
-		else {
-			MessageBox::Show("Please select a contact to delete.");
+	}
+
+	private: System::Void btnAddContact_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtNameAdd->Text = "";
+		txtPhoneAdd->Text = "";
+		picProfileAdd->Image = nullptr;
+		picProfileAdd->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+
+		DisplayProfilePictureCircular(picProfileAdd);
+		tabControl1->SelectedTab = tabPage3;
+	}
+
+	private: System::Void txtSearch_GotFocus(System::Object^ sender, System::EventArgs^ e) {
+		//if the placeholder text ("Search") is present, clear it
+		if (txtSearch->Text == "Search") {
+			txtSearch->Text = "";
+			txtSearch->ForeColor = System::Drawing::Color::Black;
+		}
+	}
+
+	private: System::Void txtSearch_LostFocus(System::Object^ sender, System::EventArgs^ e) {
+		//if the search box is empty, restore the placeholder text
+		if (String::IsNullOrWhiteSpace(txtSearch->Text)) {
+			txtSearch->Text = "Search";
+			txtSearch->ForeColor = System::Drawing::SystemColors::ControlDarkDark;
+			PopulateContactList();
+		}
+	}
+
+// FOR ADD CONTACT PAGE
+	private: System::Void btnUploadAddContactPic_Click(System::Object^ sender, System::EventArgs^ e) {
+		OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
+		openFileDialog->Filter = "Image Files|*.png;*.jpg;*.jpeg";
+
+		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			String^ filePath = openFileDialog->FileName;
+			System::Drawing::Image^ originalImage = Image::FromFile(filePath);
+			System::Drawing::Image^ croppedImage = CropImageToSquare(originalImage, 100);
+			picProfileAdd->Image = croppedImage;
+			DisplayProfilePictureCircular(picProfileAdd);
 		}
 	}
 
@@ -835,34 +760,21 @@ namespace phonebook {
 		}
 	}
 
-	private: System::Void txtSearch_GotFocus(System::Object^ sender, System::EventArgs^ e) {
-		//if the placeholder text ("Search") is present, clear it
-		if (txtSearch->Text == "Search") {
-			txtSearch->Text = "";
-			txtSearch->ForeColor = System::Drawing::Color::Black;
-		}
+	private: System::Void btnDeleteAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+		//clear all input fields
+		txtNameAdd->Text = "";
+		txtPhoneAdd->Text = "";
+		picProfileAdd->Image = nullptr;
+
+		//navigate back to the home page
+		tabControl1->SelectedTab = tabPage1;
 	}
 
-	private: System::Void txtSearch_LostFocus(System::Object^ sender, System::EventArgs^ e) {
-		//if the search box is empty, restore the placeholder text
-		if (String::IsNullOrWhiteSpace(txtSearch->Text)) {
-			txtSearch->Text = "Search";
-			txtSearch->ForeColor = System::Drawing::SystemColors::ControlDarkDark; 
-			PopulateContactList();
-		}
-	}
-
-	private: System::Void txtPhone_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		//check if both name and phone are valid
-		bool canSave = !String::IsNullOrEmpty(txtName->Text) && !String::IsNullOrEmpty(txtPhone->Text);
-		//disable save if either the name or phone is empty
-		btnSave->Enabled = canSave;
-	}
 
 	private: System::Void btnSaveAdd_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ name = txtNameAdd->Text;
 		String^ phone = txtPhoneAdd->Text;
-		System::Drawing::Image^ profileImage = picProfileAdd->Image; // Get the uploaded image
+		System::Drawing::Image^ profileImage = picProfileAdd->Image;
 
 		//validate name and phone number
 		if (String::IsNullOrWhiteSpace(name) || String::IsNullOrWhiteSpace(phone)) {
@@ -894,5 +806,125 @@ namespace phonebook {
 
 		tabControl1->SelectedTab = tabPage1;
 	}
+
+
+// FOR EDIT CONTACT PAGE
+	private: System::Void txtName_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		String^ name = txtName->Text; 
+
+		//disable the save button if the name is empty or if the name already exists in the contact list
+		bool nameExists = false;
+		for (int i = 0; i < lstContacts->Items->Count; ++i) {
+			Contact^ existingContact = dynamic_cast<Contact^>(lstContacts->Items[i]);
+			if (existingContact != nullptr && existingContact->Name == name && lstContacts->SelectedIndex != i) {
+				nameExists = true;
+				break;
+			}
+		}
+		//check if both name and phone are valid
+		bool canSave = !String::IsNullOrEmpty(name) && !nameExists && ValidatePhoneNumber(txtPhone->Text);
+		btnSave->Enabled = canSave;
+	}
+
+	private: System::Void btnUploadPicture_Click(System::Object^ sender, System::EventArgs^ e) {
+		OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
+		openFileDialog->Filter = "Image Files|*.png;*.jpg;*.jpeg";
+
+		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			String^ filePath = openFileDialog->FileName;
+
+			System::Drawing::Image^ originalImage = Image::FromFile(filePath);
+			System::Drawing::Image^ croppedImage = CropImageToSquare(originalImage, 100);
+			picProfile->Image = croppedImage;
+			DisplayProfilePictureCircular(picProfile);
+		}
+	}
+
+	private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (lstContacts->SelectedIndex != -1) {
+			String^ name = txtName->Text;
+			String^ phone = txtPhone->Text;
+
+			//validate name and phone number
+			if (String::IsNullOrEmpty(name)) {
+				MessageBox::Show("Name cannot be empty.");
+				return;
+			}
+
+			if (!ValidatePhoneNumber(phone)) {
+				MessageBox::Show("Phone number must contain only digits and be at least 10 characters.");
+				return;
+			}
+
+			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
+			if (selectedContact != nullptr) {
+				//update the contact details
+				selectedContact->Name = name;
+				selectedContact->PhoneNumber = phone;
+				selectedContact->ProfilePicture = picProfile->Image;
+
+				//refresh the circular display in the list
+				lstContacts->Refresh();
+			}
+			tabControl1->SelectedTab = tabPage1;
+		}
+		else {
+			MessageBox::Show("Please select a contact to save.");
+		}
+	}
+
+	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
+		int selectedIndex = lstContacts->SelectedIndex;
+
+		//check if a contact is selected
+		if (selectedIndex != -1) {
+			//retrieve the selected contact
+			Contact^ selectedContact = dynamic_cast<Contact^>(lstContacts->SelectedItem);
+
+			//confirmation dialog
+			System::Windows::Forms::DialogResult result = MessageBox::Show(
+				"Are you sure you want to delete this contact?",
+				"Delete Contact",
+				MessageBoxButtons::YesNo,
+				MessageBoxIcon::Question
+			);
+
+			//user confirms deletion
+			if (result == System::Windows::Forms::DialogResult::Yes) {
+				allContacts->Remove(selectedContact);
+				lstContacts->Items->RemoveAt(selectedIndex);
+				PopulateContactList();
+				tabControl1->SelectedTab = tabPage1;
+
+			}
+		}
+		else {
+			MessageBox::Show("Please select a contact to delete.");
+		}
+	}
+
+	private: System::Void txtPhone_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		String^ phone = txtPhone->Text;
+
+		//ensure the phone number is valid
+		bool canSave = ValidatePhoneNumber(phone) && !String::IsNullOrEmpty(txtName->Text);
+		btnSave->Enabled = canSave;
+	}
+	
+	private: bool ValidatePhoneNumber(String^ phone) {
+		if (String::IsNullOrEmpty(phone) || phone->Length < 10) {
+			return false;
+		}
+
+		// Ensure all characters are digits
+		for each (wchar_t c in phone) {
+			if (!Char::IsDigit(c)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 };
 }
